@@ -1,0 +1,80 @@
+<!DOCTYPE html><html>
+<head>
+<title>Contact</title><style>
+body {font-family:Arial; margin:0; text-align:center;}
+
+nav {background:black; padding:15px;}
+nav a {color:white; margin:10px; text-decoration:none;}
+
+input, textarea {
+  width:250px;
+  padding:8px;
+  margin:5px;
+}
+
+button {
+  background:blue;
+  color:white;
+  padding:8px;
+  border:none;
+  cursor:pointer;
+}
+
+#successMsg {
+  color:green;
+  margin-top:10px;
+}
+</style></head><body><nav>
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="products.html">Products</a>
+<a href="contact.html">Contact</a>
+</nav><h1>Contact Us</h1<p>📧 Email: 
+  <a href="mailto:gauribabar2106@gmail.com?subject=Order Inquiry">
+    gauribabar2106@gmail.com
+  </a>
+</p>
+<h3>Order Form</h3>
+<form onsubmit="handleOrder(event)">
+  <input type="text" id="name" placeholder="Your Name" required><br>
+  <input type="text" id="product" placeholder="Product Name" required><br>
+  <textarea id="address" placeholder="Address" required></textarea><br>
+  <button type="submit">Order Now</button>
+</form><p id="successMsg"></p><br><button onclick="sendWhatsApp()">📱 Order via WhatsApp</button>
+
+<script>
+function handleOrder(event) {
+  event.preventDefault();
+
+  let name = document.getElementById("name").value;
+  let product = document.getElementById("product").value;
+  let address = document.getElementById("address").value;
+
+  // Save data in browser (localStorage)
+  localStorage.setItem("customerName", name);
+  localStorage.setItem("productName", product);
+  localStorage.setItem("address", address);
+
+  // Show success message
+  document.getElementById("successMsg").innerHTML =
+    "✅ Order Placed Successfully!";
+
+  // Clear form
+  event.target.reset();
+}
+
+function sendWhatsApp() {
+  let name = localStorage.getItem("customerName");
+  let product = localStorage.getItem("productName");
+  let address = localStorage.getItem("address");
+
+  let message = "Order Details:%0AName: " + name +
+                "%0AProduct: " + product +
+                "%0AAddress: " + address;
+
+  let phone = " 918010745035"; // 👉 इथे तुझा नंबर टाक
+
+  window.open("https://wa.me/" + phone + "?text=" + message);
+}
+</script></body>
+</html>
